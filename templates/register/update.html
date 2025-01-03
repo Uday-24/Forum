@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1 style="text-align:center; margin-block:50px; font-size: 32px;">Hey {{user}}, Become An Author</h1>
+<div style="display: flex; align-items: flex-end;">
+    <form method="POST" action="." enctype="multipart/form-data" class="form-container" style="width: 50vw;">
+        {% csrf_token %}
+        
+        <!-- Fullname Field -->
+    <div id="div_id_fullname" class="form-group">
+        <label for="id_fullname" class="label">
+            Fullname
+        </label>
+        <div>
+            <input 
+                type="text" 
+                name="fullname" 
+                maxlength="40" 
+                class="input-field textinput textInput form-control" 
+                id="id_fullname" 
+            />
+        </div>
+    </div>
+
+    <!-- Bio Field -->
+    <div id="div_id_bio" class="form-group">
+        <label for="id_bio" class="label requiredField">
+            Bio<span class="asteriskField">*</span>
+        </label>
+        <div>
+            <textarea 
+                aria-invalid="true" 
+                class="input-field tinymce form-control is-invalid tinymce" 
+                cols="40" 
+                rows="10" 
+                id="id_bio" 
+                name="bio"
+                data-mce-conf="{&quot;theme&quot;: &quot;silver&quot;, &quot;height&quot;: 500, &quot;menubar&quot;: false, &quot;browser_spellcheck&quot;: true, &quot;plugins&quot;: &quot;advlist,autolink,lists,link,image,charmap,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,help,wordcount&quot;, &quot;toolbar&quot;: &quot;undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help&quot;, &quot;directionality&quot;: &quot;ltr&quot;, &quot;strict_loading_mode&quot;: 1, &quot;selector&quot;: &quot;#id_bio&quot;}"
+                style="resize: none;"
+            ></textarea>
+            <p id="error_1_id_bio" class="invalid-feedback">
+                <strong>This field is required.</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- Profile Picture Field -->
+    <div id="div_id_profile_pic" class="form-group">
+        <label for="id_profile_pic" class="label">
+            Profile pic
+        </label>
+        <div>
+            <input 
+                type="file" 
+                name="profile_pic" 
+                accept="image/*" 
+                class="form-control-file input-field" 
+                id="id_profile_pic" 
+            />
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <input type="submit" value="Update" class="submit-btn" style="margin-block:50px;">
+</form>
+</div>
+
+{% endblock content %}

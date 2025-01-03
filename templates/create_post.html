@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1 style="text-align:center; margin-block:50px; color:red;">Hey {{user}}, Write something</h1>
+
+<form method="POST" class="form-container">
+    {% csrf_token %}    
+    <div class="form-group">
+        <label for="id_title" class="label">Title:</label>
+        <input type="text" name="title" maxlength="400" required id="id_title" class="input-field">
+    </div>
+    <div class="form-group">
+        <label for="id_content" class="label">Content:</label>
+        <textarea class="tinymce input-field" cols="40" data-mce-conf="{"theme": "silver", "height": 500, "menubar": false, "browser_spellcheck": true, "plugins": "advlist,autolink,lists,link,image,charmap,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,help,wordcount", "toolbar": "undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help", "directionality": "ltr", "strict_loading_mode": 1, "selector": "#id_content"}" id="id_content" name="content" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="id_categories" class="label">Categories:</label>
+        <select name="categories" required id="id_categories" class="input-field" multiple>
+            <option value="4">Bugs and Glitches</option>
+            <option value="5">Reviews</option>
+            <option value="6">Betas and Suggestions</option>
+            <option value="7">Top</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id_tags" class="label">Tags:</label>
+        <div class="helptext" id="id_tags_helptext">A comma-separated list of tags.</div>
+        <input type="text" name="tags" required aria-describedby="id_tags_helptext" id="id_tags" class="input-field">
+    </div>
+    <input type="submit" value="Save" class="submit-btn">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <h1 style="text-align:center; margin-block:50px; font-size: 32px;">Create An Account</h1>
+
+  <div style="display: flex; align-items: flex-end;">
+
+  <form method="POST" action="." class="form-container" style="width: 50vw;">
+    {% csrf_token %}
+
+    <div id="div_id_username" class="form-group">
+        <label for="id_username" class="label requiredField">
+            Username<span class="asteriskField">*</span>
+        </label>
+        <div>
+            <input 
+                type="text" 
+                name="username" 
+                maxlength="150" 
+                autocapitalize="none" 
+                autocomplete="username" 
+                autofocus 
+                class="input-field textinput textInput form-control" 
+                required 
+                aria-describedby="id_username_helptext" 
+                id="id_username" 
+            />
+        </div>
+    </div>
+
+    <div id="div_id_password1" class="form-group">
+        <label for="id_password1" class="label">
+            Password
+        </label>
+        <div>
+            <input 
+                type="password" 
+                name="password1" 
+                autocomplete="new-password" 
+                class="input-field textinput textInput form-control" 
+                aria-describedby="id_password1_helptext" 
+                id="id_password1" 
+            />
+        </div>
+    </div>
+
+    <div id="div_id_password2" class="form-group">
+        <label for="id_password2" class="label">
+            Password confirmation
+        </label>
+        <div>
+            <input 
+                type="password" 
+                name="password2" 
+                autocomplete="new-password" 
+                class="input-field textinput textInput form-control" 
+                aria-describedby="id_password2_helptext" 
+                id="id_password2" 
+            />
+        </div>
+    </div>
+
+    <input type="submit" value="Signup" class="submit-btn" style="margin-block:50px;" />
+</form>
+  </div>
+
+{% endblock %}

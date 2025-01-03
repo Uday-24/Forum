@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <h1 style="text-align:center; margin-block:50px; font-size: 32px;">LogIn</h1>
+  <div style="display: flex; align-items: flex-end;">
+    <form method="POST" action="." class="form-container" style="width: 50vw;">
+      {% csrf_token %}
+      <div id="div_id_username" class="form-group">
+        <label for="id_username" class="label requiredField">Username<span class="asteriskField">*</span></label>
+        <div>
+          <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="input-field textinput textInput form-control is-invalid" required aria-invalid="true" id="id_username" />
+          <p id="error_1_id_username" class="invalid-feedback helptext">
+            <strong>This field is required.</strong>
+          </p>
+        </div>
+      </div>
+      <div id="div_id_password" class="form-group">
+        <label for="id_password" class="label requiredField">Password<span class="asteriskField">*</span></label>
+        <div>
+          <input type="password" name="password" autocomplete="current-password" class="input-field textinput textInput form-control is-invalid" required aria-invalid="true" id="id_password" />
+          <p id="error_1_id_password" class="invalid-feedback helptext">
+            <strong>This field is required.</strong>
+          </p>
+        </div>
+      </div>
+      <input type="submit" value="Signin" class="submit-btn" style="margin-block:50px;" />
+    </form>
+  </div>
+{% endblock %}
