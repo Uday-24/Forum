@@ -3,6 +3,14 @@
 {% block content %}
   <h1 style="text-align:center; margin-block:50px; font-size: 32px;">Create An Account</h1>
 
+  {% if form.non_field_errors %}
+    <div class="error" style="text-align: center; font-size: larger;">
+        {% for error in form.non_field_errors %}
+            <pre style="color: red;">{{ error }}</pre>
+        {% endfor %}
+    </div>
+{% endif %}
+
   <div style="display: flex; align-items: flex-end;">
 
   <form method="POST" action="." class="form-container" style="width: 50vw;">
@@ -30,7 +38,7 @@
 
     <div id="div_id_password1" class="form-group">
         <label for="id_password1" class="label">
-            Password
+            Password*
         </label>
         <div>
             <input 
@@ -46,7 +54,7 @@
 
     <div id="div_id_password2" class="form-group">
         <label for="id_password2" class="label">
-            Password confirmation
+            Password confirmation*
         </label>
         <div>
             <input 
@@ -58,6 +66,10 @@
                 id="id_password2" 
             />
         </div>
+    </div>
+
+    <div class="pass-policies">
+        <pre style="color: whitesmoke;">Password must be alphanumerical and must contain at least 8 characters.</pre>
     </div>
 
     <input type="submit" value="Signup" class="submit-btn" style="margin-block:50px;" />

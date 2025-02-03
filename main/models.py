@@ -14,17 +14,28 @@ User = get_user_model()
 class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=40, blank=True)
-    slug = slug = models.SlugField(max_length=400, unique=True, blank=True)
-    bio = HTMLField()
+    slug = slug = models.SlugField(max_length=400, unique=True, blank=True, default="")
+    bio = HTMLField(null=True, blank=True)
     points = models.IntegerField(default=0)
-    profile_pic = ResizedImageField(size=[50, 80], quality=100, upload_to="authors", default=None, null=True, blank=True)
+    profile_pic = ResizedImageField(size=[50, 80], quality=100, upload_to="authors", default="user.jpg", null=True, blank=True)
 
     def __str__(self):
-        return self.fullname
+        return self.user.username
 
     @property
     def num_posts(self):
         return Post.objects.filter(user=self).count()
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.fullname)
+            slug = base_slug
+            counter = 1
+            while Author.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super(Author, self).save(*args, **kwargs)
     
 
     def save(self, *args, **kwargs):

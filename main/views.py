@@ -78,20 +78,23 @@ def posts(request, slug):
 @login_required
 def create_post(request):
     context = {}
-    form = PostForm(request.POST or None)
-    if request.method == "POST":
-        if form.is_valid():
-            print("\n\n its valid")
-            author = Author.objects.get(user=request.user)
-            new_post = form.save(commit=False)
-            new_post.user = author
-            new_post.save()
-            form.save_m2m()
-            return redirect("home")
-    context.update({
-        "form": form,
-        "title": "OZONE: Create New Post"
-    })
+    try:
+        form = PostForm(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                print("\n\n its valid")
+                author = Author.objects.get(user=request.user)
+                new_post = form.save(commit=False)
+                new_post.user = author
+                new_post.save()
+                form.save_m2m()
+                return redirect("home")
+        context.update({
+            "form": form,
+            "title": "OZONE: Create New Post"
+        })
+    except:
+        return redirect("update_profile")
     return render(request, "create_post.html", context)
 
 def latest_posts(request):

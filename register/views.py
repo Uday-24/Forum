@@ -10,21 +10,26 @@ from django.contrib.auth.models import User
 #usernames = [user.username for user in User.objects.all()]
 
 def signup(request):
-    context = {}
     form = UserCreationForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
             new_user = form.save()
             login(request, new_user)
             return redirect("update_profile")
-    context.update({
-        "form":form, 
+        else:
+            form.add_error(None, "Invalid username or password")
+
+    context = {
+        "form": form,
         "title": "Signup",
-    })
+    }
     return render(request, "register/signup.html", context)
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+
 def signin(request):
-    context = {}
     form = AuthenticationForm(request, data=request.POST)
     if request.method == "POST":
         if form.is_valid():
@@ -34,10 +39,13 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 return redirect("home")
-    context.update({
+            else:
+                form.add_error(None, "Invalid username or password")  # Add custom error
+
+    context = {
         "form": form,
         "title": "Signin",
-    })
+    }
     return render(request, "register/signin.html", context)
 
 @login_required

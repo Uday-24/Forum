@@ -2,6 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
   <h1 style="text-align:center; margin-block:50px; font-size: 32px;">LogIn</h1>
+  {% if form.non_field_errors %}
+    <div class="error" style="text-align: center; font-size: larger;">
+        {% for error in form.non_field_errors %}
+            <pre style="color: red;">{{ error }}</pre>
+        {% endfor %}
+    </div>
+{% endif %}
   <div style="display: flex; align-items: flex-end;">
     <form method="POST" action="." class="form-container" style="width: 50vw;">
       {% csrf_token %}
